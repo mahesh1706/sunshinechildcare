@@ -212,12 +212,12 @@
                                     <select class="custom-select border-0 px-4 class" style="height: 47px;">
                                         <option selected>Select A Class</option>
                                         <option value="1">Class 1</option>
-                                        <option value="2">Class 1</option>
-                                        <option value="3">Class 1</option>
+                                        <option value="2">Class 2</option>
+                                        <option value="3">Class 3</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <button class="btn btn-secondary btn-block border-0 py-3 " type="button" onclick="sendwhatsapp();">Book Now</button>
+                                    <button class="btn btn-secondary btn-block border-0 py-3" type="button" onclick="sendWhatsApp();">Book Now</button>
                                 </div>
                             </form>
                         </div>
@@ -316,25 +316,22 @@
     <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
     <script>
-        function sendwhatsapp(){
-         var phonenumber = "+916382043432";
-  
-         var name = document.querySelector(".name").value;
-         var email = document.querySelector(".email").value;
-         var country = document.querySelector(".class").value;
-         var message = document.querySelector(".message").value;
-  
-         var url = "https://wa.me/" + phonenumber + "?text="
-         +"*Name :* "+name+"%0a"
-         +"*Email :* "+email+"%0a"
-         +"*Country:* "+country+"%0a"
-         +"*Message :* "+message
-         +"%0a%0a"
-         +"This is an example of send HTML form data to WhatsApp";
-  
-         window.open(url, '_blank').focus();
-       }
-      </script>
+        function sendWhatsApp() {
+            var phoneNumber = "6382043432";
+    
+            var name = document.querySelector(".name").value;
+            var email = document.querySelector(".email").value;
+            var selectedClass = document.querySelector(".class").value;
+    
+            var url = "https://wa.me/" + phoneNumber + "?text="
+                + "*Name:* " + encodeURIComponent(name) + "%0a"
+                + "*Email:* " + encodeURIComponent(email) + "%0a"
+                + "*Selected Class:* " + encodeURIComponent(selectedClass) + "%0a%0a"
+                + "This is an example of sending HTML form data to WhatsApp";
+    
+            window.open(url, '_blank').focus();
+        }
+    </script>
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
