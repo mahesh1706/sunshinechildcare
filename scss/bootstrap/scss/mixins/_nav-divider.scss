@@ -1,0 +1,7 @@
+// Horizontal dividers
+//
+// Dividers (basically an hr) within dropdowns and nav lists  margin: $margin-y 0;
+  overflow: hidden;
+  border-top: 1px solid $color;
+  @include deprecate("The `nav-divider()` mixin", "v4.4.0", "v5", $ignore-warning);
+}

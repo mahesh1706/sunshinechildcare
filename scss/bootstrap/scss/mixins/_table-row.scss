@@ -1,0 +1,21 @@
+// Tables  // inheritance to nested tables.
+  .table-#{$state} {
+    &,
+    > th,
+    > td {
+      background-color: $background;
+    }    @if $border != null {
+      th,
+           tbody + tbody {
+        border-color: $border;
+      }
+    }
+  }  // Hover states for `.table-hover`
+  // Note: this is not available for cells or rows within `thead` or `tfoot`.
+  .table-hover {
+    $hover-background: darken($background, 5%);    .table-#{$state} {
+           > th {
+          background-color: $hover-background;
+        }
+      }  }
+}

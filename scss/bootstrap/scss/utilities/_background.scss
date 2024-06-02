@@ -1,0 +1,7 @@
+// stylelint-disable declaration-no-important}@if $enable-gradients {
+  @each $color, $value in $theme-colors {
+ }.bg-white {
+  background-color: $white !important;
+}.bg-transparent {
+  background-color: transparent !important;
+}

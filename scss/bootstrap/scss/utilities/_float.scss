@@ -1,0 +1,3 @@
+// stylelint-disable declaration-no-important    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);    .float#{$infix}-left  { float: left !important; }
+    .float#{$infix}-right { float: right !important; }
+    .float#{$infix}-none  { float: none !important; }}
