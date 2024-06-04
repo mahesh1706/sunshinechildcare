@@ -184,7 +184,9 @@
         </div>
     </div>
 </div>
-<!-- Class End -->
+
+<!-- book -->
+<section id="book"></section>
 <div class="container-fluid py-5">
     <div class="container">
         <div class="row align-items-center">
@@ -233,6 +235,7 @@
         </div>
     </div>
 </div>
+</section>
 <!-- Testimonial Start -->
 <div class="container-fluid py-5">
     <div class="container p-0">
@@ -339,7 +342,7 @@ Thank u so much Lakshmi ma'am🙏
                             </ul>
                         </div>
                     </div>
-                    <a href="" class="btn btn-success mt-2 py-2 px-4">Wahtsapps us for Booking</a>
+                    <a href="#book" class="btn btn-danger mt-2 py-2 px-4"> Resereve your Seat Book Now  </a>
                 </div>
             </div>
         </div>
@@ -486,7 +489,7 @@ Thank u so much Lakshmi ma'am🙏
             <p class="m-0 text-center text-white">
                 &copy; <a class="text-primary font-weight-bold" href="https://sunshinechildcare.in">Sunshinechildcare</a>. All Rights Reserved. 
 				
-				<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+				
 				Designed by <a class="text-primary font-weight-bold" href="https://mahesh-cloud.netlify.app">Maheshwaran</a>
             </p>
         </div>
@@ -517,8 +520,8 @@ Thank u so much Lakshmi ma'am🙏
             var url = "https://wa.me/" + phoneNumber + "?text="
                 + "*Name:* " + encodeURIComponent(name) + "%0a"
                 + "*Email:* " + encodeURIComponent(email) + "%0a"
-                + "*Selected Class:* " + encodeURIComponent(selectedClass) + "%0a%0a"
-                + "This is an example of sending HTML form data to WhatsApp";
+                + "*Selected Class:* " + encodeURIComponent(selectedClass);
+                
     
             window.open(url, '_blank').focus();
         }
