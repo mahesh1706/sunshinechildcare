@@ -185,7 +185,54 @@
     </div>
 </div>
 <!-- Class End -->
-
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 mb-5 mb-lg-0">
+                <p class="section-title pr-5"><span class="pr-2">Book A Seat</span></p>
+                <h1 class="mb-4">Book A Seat For Your Kid</h1>
+                <p>Our innovative and creative curriculum allows children to freely explore, investigate and experience the world with all of their senses through learning material, audio video equipments and guidance. The curriculum has been designed for the all round development of the child, taking into account their cognitive, physical, social, emotional and sensorial abilities.
+                </p>
+                <ul class="list-inline m-0">
+                    <li class="py-2"><i class="fa fa-check text-success mr-3"></i> Kid’s friendly and safe spaces</li>
+                    <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Highest quality educational toys. 
+                    </li>
+                    <li class="py-2"><i class="fa fa-check text-success mr-3"></i>⁠Projector which helps kids visualise and understand the curriculum
+                    </li>
+                </ul>
+              
+            </div>
+            <div class="col-lg-5">
+                <div class="card border-0">
+                    <div class="card-header bg-secondary text-center p-4">
+                        <h1 class="text-white m-0">Book A Seat</h1>
+                    </div>
+                    <div class="card-body rounded-bottom bg-primary p-5">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control border-0 p-4 name" placeholder="Your Name" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control border-0 p-4 email" placeholder="Your Email" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <select class="custom-select border-0 px-4 class" style="height: 47px;">
+                                    <option selected>Select A Class</option>
+                                    <option value="1">Class 1</option>
+                                    <option value="2">Class 2</option>
+                                    <option value="3">Class 3</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button class="btn btn-secondary btn-block border-0 py-3" type="button" onclick="sendWhatsApp();">Book Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Testimonial Start -->
 <div class="container-fluid py-5">
     <div class="container p-0">
@@ -393,11 +440,10 @@ Thank u so much Lakshmi ma'am🙏
                 <div class="d-flex justify-content-start mt-4">
                    
                     <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-facebook-f"></i></a>
+                        style="width: 38px; height: 38px; background-color: red !important;color: white !important;" href="https://www.facebook.com/people/Sunshine-Playhome/100063801525660/"><i class="fab fa-facebook-f"></i></a>
+
                     <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-instagram"></i></a>
+                        style="width: 38px; height: 38px;background-color: red !important;color: white !important;" href="https://www.instagram.com/sunshineplayhome?igsh=MTE4bjh3YnhwZm1pag%3D%3D&utm_source=qr"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <br>
@@ -407,22 +453,22 @@ Thank u so much Lakshmi ma'am🙏
                 <div class="d-flex">
                     <h4 class="fa fa-map-marker-alt text-primary"></h4>
                     <div class="pl-3">
-                        <h5 class="text-white">Address</h5>
-                        <p>No: 2, Denkanikotta Rd, opp. to Sub Collector's Bungalow, Hosur, Dinnur, Hosur, Tamil Nadu 635109</p>
+                        <h5 class="text-white" >Address</h5>
+                        <p >No: 2, Denkanikotta Rd, opp. to Sub Collector's Bungalow, Hosur, Dinnur, Hosur, Tamil Nadu 635109</p>
                     </div>
                 </div>
                 <div class="d-flex">
                     <h4 class="fa fa-envelope text-primary"></h4>
                     <div class="pl-3">
                         <h5 class="text-white">Email</h5>
-                        <p>info@example.com</p>
+                        <p>sunshineprekg08@gmail.com</p>
                     </div>
                 </div>
                 <div class="d-flex">
                     <h4 class="fa fa-phone-alt text-primary"></h4>
                     <div class="pl-3">
                         <h5 class="text-white">Phone</h5>
-                        <p>+012 345 67890</p>
+                        <p>9487562182</p>
                     </div>
                 </div>
             </div>
@@ -459,6 +505,23 @@ Thank u so much Lakshmi ma'am🙏
     <script src="lib/isotope/isotope.pkgd.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
 
+    <script>
+        function sendWhatsApp() {
+            var phoneNumber = "6382043432";
+    
+            var name = document.querySelector(".name").value;
+            var email = document.querySelector(".email").value;
+            var selectedClass = document.querySelector(".class").value;
+    
+            var url = "https://wa.me/" + phoneNumber + "?text="
+                + "*Name:* " + encodeURIComponent(name) + "%0a"
+                + "*Email:* " + encodeURIComponent(email) + "%0a"
+                + "*Selected Class:* " + encodeURIComponent(selectedClass) + "%0a%0a"
+                + "This is an example of sending HTML form data to WhatsApp";
+    
+            window.open(url, '_blank').focus();
+        }
+    </script>
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
