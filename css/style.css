@@ -59,12 +59,12 @@ body {
   margin: 0;
   font-family: "Comic Neue", cursive ;
 
-  
+  text-align: justify;
   
 
   line-height: 1.5;
   color: #000000;
-  text-align: left;
+ 
   background-color: #fff;
 }
 .comic-neue-light {
