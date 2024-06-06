@@ -42,8 +42,10 @@
   box-sizing: border-box;
 }
 
+
 html {
-  font-family: sans-serif;
+  font-family: "Comic Neue", cursive !important;
+  font-weight: bold;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -55,7 +57,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Comic Neue", cursive !important;
+  font-family: "Comic Neue", cursive ;
 
   
   
@@ -64,6 +66,41 @@ body {
   color: #000000;
   text-align: left;
   background-color: #fff;
+}
+.comic-neue-light {
+  font-family: "Comic Neue", cursive;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.comic-neue-regular {
+  font-family: "Comic Neue", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.comic-neue-bold {
+  font-family: "Comic Neue", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.comic-neue-light-italic {
+  font-family: "Comic Neue", cursive;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.comic-neue-regular-italic {
+  font-family: "Comic Neue", cursive;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.comic-neue-bold-italic {
+  font-family: "Comic Neue", cursive;
+  font-weight: 700;
+  font-style: italic;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -211,7 +248,7 @@ caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   color: black;
-  text-align: left;
+  text-align: justify;
   caption-side: bottom;
 }
 
@@ -365,7 +402,7 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
   font-family: "Comic Neue", cursive;
-  font-weight: bold;
+  
   line-height: 1.2;
   
   background: linear-gradient(rgb(0, 124, 191), rgb(8, 8, 79));
