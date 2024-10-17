@@ -29,57 +29,86 @@
     <link rel="icon" href="/img/Sunshine logo .png">
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        @media (min-width: 992px) {
+           .navbar1{
+               display: flex;
+               flex-direction: row;
+             
+               align-items: center;
+           }
+       }
+
+           @media (min-width: 992px) {
+           .navbar2{
+              
+          
+               justify-content: center;
+             
+               align-items: center;
+              
+           }
+       }
+         @media (min-width: 992px) {
+           .navbar2{
+              
+          
+               justify-content: center;
+             
+               align-items: center;
+              
+           }
+
+           .navbar-menu{
+               
+            
+               align-items: center;
+               
+             
+
+           }
+       }
+   </style>
 </head>
 
 <body>
-    <!-- Navbar Start -->
-   <div class="container-fluid bg-light position-relative shadow">
-        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
-            <a href="" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
-                
-                <div class="container-fluid">
+    <nav class="navbar">
+        <div class="container-fluid">
+        <div class="navbar1 d-flex row ">
+
+            <div class=" col-lg-1 col-md-12 col-sm-12 navbar2 flex-row mb-3 p-2 d-flex justify-content-lg-end justify-content-md-center justify-content-center">
+            <img src="/img/base.png" alt="Logo" class="logo " >
+            </div>
+        <div class="col-lg-1 col-md-12 col-sm-12 d-flex justify-content-lg-start  justify-content-md-center justify-content-center">
+            <img  src="/img/sunt.png" alt="Logo" class="logo1 " >
+            </div>
+           
+           
+           
+<hr>
+
+          
+        
+            <div class="  col-lg-10 col-md-12 mt-2  d-flex justify-content-lg-center justify-content-md-center ">
+                <nav >
+                    <ul class="list-inline navbar-menu  ">
+                        <li class="list-inline-item"><a  href="/index.html">Home</a></li>
+                        <li class="list-inline-item"><a  href="/Programs.html">Programs</a></li>
+                        
+                        <li class="list-inline-item"><a class="" href="/gallery.html">Gallery</a></li>
+                        <li class="list-inline-item"><a class="" href="/contact.html">Contact</a></li>
+                    </ul>
                    
-                      <img src="/img/Sunshine logo.png" alt="Logo" width="40" height="34" class="d-inline-block align-text-top">
-                      <span class="" style=" font-size: 20px ; background: linear-gradient(rgb(0, 124, 191), rgb(8, 8, 79));
-                -webkit-background-clip: text;
-                        background-clip: text;
-                -webkit-text-fill-color: transparent;">SUNSHINE </span><span class="text" style=" font-size: 20px ; color: red;"> CHILDCARE </span>
-                    
-                  </div>
+                </nav>
                 
-            </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between " id="navbarCollapse">
-                <div class="navbar-nav font-weight-bold mx-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active nav-primary">Home</a>
-                    <a href="class.html" class="nav-item nav-link">Classes</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="gallery.html" class="nav-item nav-link">Gallery</a>
-                    
-                    
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                </div>
-               
             </div>
-        </nav>
     </div>
-    <!-- Navbar End -->
+    </nav>
+    <div class="menu-text " onclick="toggleMenu()">Menu</div>
+</div>
 
 
-    <!-- Header Start -->
-    <div class="container-fluid bg-primary mb-5">
-        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
-            <h3 class="display-3 font-weight-bold text-white">Gallery</h3>
-            <div class="d-inline-flex text-white">
-                <p class="m-0"><a class="text-white" href="">Home</a></p>
-                <p class="m-0 px-2">/</p>
-                <p class="m-0">Gallery</p>
-            </div>
-        </div>
-    </div>
-    <!-- Header End -->
+   
 
 
     <!-- Gallery Start -->
@@ -105,6 +134,16 @@
                         <img class="img-fluid w-100" src="img/sunshine-kids.jpg" alt="">
                         <div class="portfolio-btn bg-primary d-flex align-items-center justify-content-center">
                             <a href="img/sunshine-paly.jpg" data-lightbox="portfolio">
+                                <i class="fa fa-plus text-white" style="font-size: 60px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 portfolio-item first">
+                    <div class="position-relative overflow-hidden mb-2">
+                        <img class="img-fluid w-100" src="img/gt6.jpg" alt="">
+                        <div class="portfolio-btn bg-primary d-flex align-items-center justify-content-center">
+                            <a href="img/gt6.jpg" data-lightbox="portfolio">
                                 <i class="fa fa-plus text-white" style="font-size: 60px;"></i>
                             </a>
                         </div>
@@ -274,6 +313,12 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <!-- Gallery End -->
 
 
@@ -284,7 +329,7 @@
                     
                     <div class="container-fluid">
                    
-                        <img src="/img/Sunshine logo .png" alt="Logo" width="70" height="64" class="d-inline-block align-text-top">
+                        <img src="/img/Sunshine logo.png" alt="Logo" width="70" height="64" class="d-inline-block align-text-top">
                         <span class="" style=" font-size: 20px ; background: linear-gradient(rgb(0, 124, 191), rgb(8, 8, 79));
                   -webkit-background-clip: text;
                           background-clip: text;

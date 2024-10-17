@@ -22,284 +22,671 @@
         @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
         </style>
     <!-- Libraries Stylesheet -->
+    
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
     <link rel="icon" href="/img/Sunshine logo.png">
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script type="text/javascript">
+        // <![CDATA[
+        var colours=new Array("#a6f", "#60f", "#60f", "#a6f", "#ccc"); // colours for top, right, bottom and left borders and background of bubbles
+        var bubbles=66; // maximum number of bubbles on screen
+        var over_or_under="over"; // set to "over" for bubbles to always be on top, or "under" to allow them to float behind other objects
+        
+        /****************************
+        * JavaScript Bubble Cursor  *
+        *(c)2010-13 mf2fm web-design*
+        *  http://www.mf2fm.com/rv  *
+        * DON'T EDIT BELOW THIS BOX *
+        ****************************/
+        var x=ox=400;
+        var y=oy=300;
+        var swide=800;
+        var shigh=600;
+        var sleft=sdown=0;
+        var bubb=new Array();
+        var bubbx=new Array();
+        var bubby=new Array();
+        var bubbs=new Array();
+        var sploosh=false;
+        
+        function addLoadEvent(funky) {
+          var oldonload=window.onload;
+          if (typeof(oldonload)!='function') window.onload=funky;
+          else window.onload=function() {
+            if (oldonload) oldonload();
+            funky();
+          }
+        }
+        
+        addLoadEvent(buble);
+        
+        function buble() { if (document.getElementById) {
+          var i, rats, div;
+          for (i=0; i<bubbles; i++) {
+            rats=createDiv("3px", "3px");
+            rats.style.visibility="hidden";
+            rats.style.zIndex=(over_or_under=="over")?"1001":"0";
+        
+            div=createDiv("auto", "auto");
+            rats.appendChild(div);
+            div=div.style;
+            div.top="1px";
+            div.left="0px";
+            div.bottom="1px";
+            div.right="0px";
+            div.borderLeft="1px solid "+colours[3];
+            div.borderRight="1px solid "+colours[1];
+        
+            div=createDiv("auto", "auto");
+            rats.appendChild(div);
+            div=div.style;
+            div.top="0px";
+            div.left="1px";
+            div.right="1px";
+            div.bottom="0px"
+            div.borderTop="1px solid "+colours[0];
+            div.borderBottom="1px solid "+colours[2];
+        
+            div=createDiv("auto", "auto");
+            rats.appendChild(div);
+            div=div.style;
+            div.left="1px";
+            div.right="1px";
+            div.bottom="1px";
+            div.top="1px";
+            div.backgroundColor=colours[4];
+            if (navigator.appName=="Microsoft Internet Explorer") div.filter="alpha(opacity=50)";
+            else div.opacity=0.5;
+            document.body.appendChild(rats);
+            bubb[i]=rats.style;
+          }
+          set_scroll();
+          set_width();
+          bubble();
+        }}
+        
+        function bubble() {
+          var c;
+          if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
+            ox=x;
+            oy=y;
+            for (c=0; c<bubbles; c++) if (!bubby[c]) {
+              bubb[c].left=(bubbx[c]=x)+"px";
+              bubb[c].top=(bubby[c]=y-3)+"px";
+              bubb[c].width="3px";
+              bubb[c].height="3px"
+              bubb[c].visibility="visible";
+              bubbs[c]=3;
+              break;
+            }
+          }
+          for (c=0; c<bubbles; c++) if (bubby[c]) update_bubb(c);
+          setTimeout("bubble()", 40);
+        }
+        
+        document.onmousedown=splash;
+        document.onmouseup=function(){clearTimeout(sploosh);};
+        
+        function splash() {
+          ox=-1;
+          oy=-1;
+          sploosh=setTimeout('splash()', 100);
+        }
+        
+        function update_bubb(i) {
+          if (bubby[i]) {
+            bubby[i]-=bubbs[i]/2+i%2;
+            bubbx[i]+=(i%5-2)/5;
+            if (bubby[i]>sdown && bubbx[i]>sleft && bubbx[i]<sleft+swide+bubbs[i]) {
+              if (Math.random()<bubbs[i]/shigh*2 && bubbs[i]++<8) {
+                bubb[i].width=bubbs[i]+"px";
+                bubb[i].height=bubbs[i]+"px";
+              }
+              bubb[i].top=bubby[i]+"px";
+              bubb[i].left=bubbx[i]+"px";
+            }
+            else {
+              bubb[i].visibility="hidden";
+              bubby[i]=0;
+              return;
+            }
+          }
+        }
+        
+        document.onmousemove=mouse;
+        function mouse(e) {
+          if (e) {
+            y=e.pageY;
+            x=e.pageX;
+          }
+          else {
+            set_scroll();
+            y=event.y+sdown;
+            x=event.x+sleft;
+          }
+        }
+        
+        window.onresize=set_width;
+        function set_width() {
+          var sw_min=999999;
+          var sh_min=999999;
+          if (document.documentElement && document.documentElement.clientWidth) {
+            if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+            if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+          }
+          if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+            if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+            if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+          }
+          if (document.body.clientWidth) {
+            if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+            if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+          }
+          if (sw_min==999999 || sh_min==999999) {
+            sw_min=800;
+            sh_min=600;
+          }
+          swide=sw_min;
+          shigh=sh_min;
+        }
+        
+        window.onscroll=set_scroll;
+        function set_scroll() {
+          if (typeof(self.pageYOffset)=='number') {
+            sdown=self.pageYOffset;
+            sleft=self.pageXOffset;
+          }
+          else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+            sdown=document.body.scrollTop;
+            sleft=document.body.scrollLeft;
+          }
+          else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+            sleft=document.documentElement.scrollLeft;
+            sdown=document.documentElement.scrollTop;
+          }
+          else {
+            sdown=0;
+            sleft=0;
+          }
+        }
+        
+        function createDiv(height, width) {
+          var div=document.createElement("div");
+          div.style.position="absolute";
+          div.style.height=height;
+          div.style.width=width;
+          div.style.overflow="hidden";
+          div.style.backgroundColor="transparent";
+          return (div);
+        }
+        // ]]>
+        </script>
+        <style>  @keyframes pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+      }
+      .btn-enroll {
+          animation: pulse 2s infinite;
+      }
+      .card-img-small {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          border-radius: 50%;
+      }
+      
+      
+      .marquee {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .marquee-content {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+        .marquee-item {
+            flex-shrink: 0;
+            width: 200px;
+            margin-right: 20px;
+        }
+        .marquee-item img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        @media (max-width: 768px) {
+            .marquee-item {
+                width: 150px;
+            }
+        }
+        @media (max-width: 576px) {
+            .marquee-item {
+                width: 100px;
+            }
+        }
+        @media (min-width: 992px) {
+            .navbar1{
+                display: flex;
+                flex-direction: row;
+              
+                align-items: center;
+            }
+        }
+
+            @media (min-width: 992px) {
+            .navbar2{
+               
+           
+                justify-content: center;
+              
+                align-items: center;
+               
+            }
+
+            .navbar-menu{
+                
+             
+                align-items: center;
+                
+              
+
+            }
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        } 
+        </style>
 </head>
 
 <body>
+    
     <!-- Navbar Start -->
-    <div class="container-fluid bg-light position-relative shadow">
-        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
-            <a href="https://sunshinechildcare.in/" class="navbar-brand font-weight-bold " style="font-size: 50px;">
-                
-                <div class="container-fluid ">
+    <nav class="navbar">
+        <div class="container-fluid">
+        <div class="navbar1 d-flex row ">
+
+            <div class=" col-lg-1 col-md-12 col-sm-12 navbar2 flex-row mb-3 p-2 d-flex justify-content-lg-end justify-content-md-center justify-content-center">
+            <img src="/img/base.png" alt="Logo" class="logo " >
+            </div>
+        <div class="col-lg-1 col-md-12 col-sm-12 d-flex justify-content-lg-start  justify-content-md-center justify-content-center">
+            <img  src="/img/sunt.png" alt="Logo" class="logo1 " >
+            </div>
+           
+           
+           
+<hr>
+
+          
+        
+            <div class="  col-lg-10 col-md-12 mt-2 d-flex justify-content-lg-center justify-content-md-center ">
+                <nav >
+                    <ul class="list-inline navbar-menu  ">
+                        <li class="list-inline-item"><a  href="/index.html">Home</a></li>
+                        <li class="list-inline-item"><a  href="/Programs.html">Programs</a></li>
+                        
+                        <li class="list-inline-item"><a class="" href="/gallery.html">Gallery</a></li>
+                        <li class="list-inline-item"><a class="" href="/contact.html">Contact</a></li>
+                    </ul>
                    
-                      <img  src="img/Sunshine logo.png" alt="Logo" width="80" height="74" class="d-inline-block align-text-top">
-                      <img src="img/sunt.png" alt="sunshine" width="300" height="45">
-                  </div>
+                </nav>
                 
-            </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between " id="navbarCollapse">
-                <div class="navbar-nav font-weight-bold mx-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active nav-primary">Home</a>
-                    <a href="class.html" class="nav-item nav-link">Classes</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="gallery.html" class="nav-item nav-link">Gallery</a>
-                    
-                    
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                </div>
-               
             </div>
-        </nav>
     </div>
-    <!-- Navbar End -->
+    </nav>
+    <div class="menu-text " onclick="toggleMenu()">Menu</div>
+</div>
 
-
-    <!-- Header Start -->
-    <div class="container-fluid  px-0 px-md-5 mb-5" style="background-color: #FFFF00;">
-        <div class="row align-items-center px-3">
-            <div class="col-lg-6 text-center text-lg-left">
-                <br><br>
-                <h4 class=" mb-4 mt-5 mt-lg-0"  style="color: #0000FF;">Kids Learning Center</h4>
-              <img src="/img/sunshine.png" width="300">
-                <p class=" mb-4" style="color: #0000FF; font-size: 19px;text-align: justify;" > Sunshine believes in recognising and fostering each child’s unique potential to develop their full intellectual, personal and social abilities. We build strong family partnerships and with right tools help children enter school ready to learn. 
-
-                </p>
-                
-                 <a href="https://api.whatsapp.com/send/?phone=%2B919487562182&text&type=phone_number&app_absent=0" class="btn btn-success mt-2 py-2 px-4">whatsapp us for Booking</a><br><br>
-                <div class="container-fluid">
-                    <span style="background-color: white;color: red;"> ! Click the link above ☝️ to Reserve the seat</span><br><br>
+    </div>
+<section id="admission">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 mt-4 d-flex justify-content-center">
+                <img src="/img/sunshine.png" class="img-fluid "  width="400px" height="30px" >
+            </div>
+            
+            <div class="col-xl-4 col-lg-5 col-md-5 col-sm-12 d-flex m-3 p-3">
+               
+                <div class="card-body rounded-bottom bg-primary p-4" style="background-color: #FFEE00 !important;">
+                    <form>
+                        <h2 class="d-flex justify-content-center p-3">Admission Form</h2>
+                     
+                        <div class="form-group">
+                            <input type="text" class="form-control border-0 p-4 name" placeholder="Name of the Parent" required="required" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-control border-0 p-4 child " placeholder="Name of the Child " required="required" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control border-0 p-4 age " placeholder="Age of the Child " required="required" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control border-0 p-4 number" placeholder="Phone Number  " required="required" />
+                        </div>
+                        <div class="form-group">
+                            <select class="custom-select border-0 px-4 class" style="height: 47px;">
+                                <option selected>Select Program Category</option>
+                                <option value="1">Pre School</option>
+                                <option value="2">Play School</option>
+                                <option value="3">Day School</option>
+                                <option value="3">After-school care</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn btn-secondary btn-block border-0 py-3" type="button" onclick="sendWhatsApp();">Submit </button>
+                        </div>
                     
-              
-                  
+                    </form>
+                    <div class="video-container  pt-5 ">
+                        <h5 class="d-flex justify-content-center">Google Reviews By Happy Parents </h5>
+                        <video autoplay loop muted playsinline>
+                         
+                            <source src="/img/review.mkv" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="mt-3">
+                        <a href="https://www.google.com/search?q=sunshine+hosur&oq=sun&gs_lcrp=EgZjaHJvbWUqBggDEEUYOzIGCAAQRRg8MgYIARBFGDwyBggCEEUYOTIGCAMQRRg7MgYIBBBFGDsyBggFEEUYPDIGCAYQRRg8MgYIBxAuGEDSAQg2NjAyajBqMagCALACAA&sourceid=chrome&ie=UTF-8&lqi=Cg5zdW5zaGluZSBob3N1ckj0he_-lauAgAhaFhAAGAAYASIOc3Vuc2hpbmUgaG9zdXKSAQlwcmVzY2hvb2yqAUUQASoMIghzdW5zaGluZSgAMh8QASIbBmSqC5-9osR5YwE5CYHMTj3raAn2npUypkhZMhIQAiIOc3Vuc2hpbmUgaG9zdXI#rlimm=12671918214005202368"><button class="btn btn-danger btn-block  p-2" type="button" >Check Out 💬 Google Reviews </button></a>
+                    </div>
+                    </div>
+                </div>
+                
+            </div>
+       
+            
+            <div class="col-xl-4 col-lg-5 col-md-5 col-sm-12 d-flex m-3 p-3 justify-content-lg-center ">
+                <div class="col-12">
+                    <div class="d-flex flex-column flex-md-row bg-light rounded-3 p-3 mb-4">
+                        <div class="flex-grow-1 p-3  rounded-3 me-md-3 mb-3 mb-md-0" style="background-color: #FFEE00;">
+                            <h4 class="text-center">Nurturing Enviroment </h4>
+                        </div>
+                        <div class="flex-grow-1 p-3  rounded-3" style="background-color: #FFEE00;">
+                            <h4 class="text-center"> Learn, Grow and Have Fun Too</h4>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-3 p-4 shadow mb-4">
+                        <p class="mb-0">
+                            Sunshine ensures child friendly, warm environment where each child is valued, loved and feels safe and comfortable. We provide a strong foundation for overall development, well being and healthy habits. We help the child explore naturally in all areas of learning including literacy and numeracy.
+                        </p>
+                    </div>
+                <div class="mb-4">
+                    <div id="myCarousel" class="carousel slide m-2" data-bs-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+                            <li data-bs-target="#myCarousel" data-bs-slide-to="3"></li>
+                        </ol>
+                    
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="/img/onam.jpg" class="img-fluid w-100 p-0" alt="Image 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/img/eid.jpg" class="img-fluid w-100 p-0" alt="Image 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/img/fri.jpg" class="img-fluid w-100 p-0" alt="Image 3">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/img/fes.jpg" class="img-fluid w-100 p-0" alt="Image 4">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/img/daymat.jpg" class="img-fluid w-100 p-0" alt="Image 4">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/img/family.jpg" class="img-fluid w-100 p-0" alt="Image 4">
+                            </div>
+                        </div>
+                    
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6 text-center text-lg-right">
-                <img src="img/Sunshine logo.png" alt="Logo" width="100" height="94" class="d-inline-block ">
-                 
-                    <span class="" style=" font-size: 30px ; background: linear-gradient(rgb(0, 124, 191), rgb(8, 8, 79));
-              -webkit-background-clip: text;
-                      background-clip: text;
-              -webkit-text-fill-color: transparent;">SUNSHINE </span><span class="text" style=" font-size: 30px ; color: red;"> CHILDCARE </span>
-                <img class="img-fluid mt-5" src="img/hero3.png" height="6000">
+            </div>
+            <div class="col-xl-3 col-lg-12 col-sm-12 d-flex m-3 p-3  ">
+                <div class="row">
+                    <div class="col-12"> 
+                        <aside class="sidebar">
+                            <span class="btn-icon h1">🔗</span>
+                                   <h1>Quick Links</h1>
+                            <nav class="magic-nav">
+                               
+                                    
+                                
+                                <a href="/img/pdf.pdf" class="magic-btn floating p-5" data-aos="fade-right" data-aos-delay="100">
+                                    <span class="btn-icon p-2">📙</span>
+                                    <h6>Download Brochure </h6>
+                                </a>
+                                <a href="#program" class="magic-btn floating p-5" data-aos="fade-right" data-aos-delay="200">
+                                    <span class="btn-icon">🎭</span>
+                                   <h6>  Programs</h6>
+                                </a>
+                                <a href="/gallery.html" class="magic-btn floating p-5" data-aos="fade-right" data-aos-delay="300">
+                                    <span class="btn-icon">📸</span>
+                                   <h6>Photos</h6> 
+                                </a>
+                                <a href="#Testimonials" class="magic-btn floating p-5 " data-aos="fade-right" data-aos-delay="400">
+                                    <span class="btn-icon">📣</span>
+                                    <h6>Testimonials</h6> 
+                                </a>
+                              
+                            </nav>
+                        </aside>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</section>
+    <hr>
+    <br>
+    <br>
+    <!-- Navbar End -->
+    <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed"></div>
+
+    <!-- Header Start -->
+    
+        
+                      
+
+     
     <!-- Header End -->
 
     <!-- About Start -->
+   
+               
     <div class="container-fluid py-5">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-5">
-                    <img class="img-fluid rounded mb-5 mb-lg-0" src="img/about.jpg" alt="">
-                </div>
-                
-                <div class="col-lg-7">
-                    <p class="section-title pr-5"><span class="pr-2">Learn About Us</span></p>
-                    <h1 class="mb-4">Best School For Your Kids</h1>
-                    <p> Our innovative and creative curriculum allows children to freely explore, investigate and experience the world with all of their senses through learning material, audio video equipments and guidance. The curriculum has been designed for the all round development of the child, taking into account their cognitive, physical, social, emotional and sensorial abilities.<br><br>
-                        
+                <div class="col-lg-12 mb-12 mb-lg-0">
+                    <p class="section-title pr-5"><span class="pr-2">Why We Are Special</span></p>
+                    <h1 class="mb-4">Sunshine Childcare is The Right Place For Your Childern </h1>
+                    <p>Our innovative and creative curriculum allows children to freely explore, investigate and experience the world with all of their senses through learning material, audio video equipments and guidance. The curriculum has been designed for the all round development of the child, taking into account their cognitive, physical, social, emotional and sensorial abilities.
                     </p>
-                    <div class="row pt-2 pb-4">
-                        <div class="col-6 col-md-4">
-                            <img class="img-fluid rounded" src="img/min.jpg" alt="">
-                        </div>
-                        <div class="col-6 col-md-8">
-                            <ul class="list-inline m-0">
-                                <li class="py-2"><i class="fa fa-check text-success mr-3"></i> Kid’s friendly and safe spaces</li>
-                                <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Highest quality educational toys. 
-                                </li>
-                                <li class="py-2"><i class="fa fa-check text-success mr-3"></i>⁠Projector which helps kids visualise and understand the curriculum
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <a href="#book" class="btn btn-danger mt-2 py-2 px-4"> Book Now for Reserving your seat </a>
+                    <ul class="list-inline m-0 ">
+                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Child friendly learning Material and toys
+                        </li>
+                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>A nurturing, secure, and comforting environment</li>
+                        
+                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Qualified and experienced caretaker </li>
+                        </li>
+                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Creative educational activities</li>
+                        </li>
+                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Builds school readiness</li>
+                        </li>
+                    </ul>
+                  
                 </div>
+              
             </div>
         </div>
     </div>
+    </section>
+                <hr>
+                 
     <!-- About End -->
-
+<br><br><br>
 <!-- Class Start -->
-<div class="container-fluid ">
-    <div class="container">
-        <div class="text-center pb-2">
-            <p class="section-title px-5"><span class="px-2"></span></p>
-            <h1 class="mb-4">Classes for Your Kids</h1>
-        </div>
-        
-        <div class="row">
-            <div class="col-lg-4 mb-5">
-                <div class="card border-0 bg-light shadow-sm pb-2">
-                    <img class="card-img-top mb-2" src="img/pre.jpg" alt="">
-                    <div class="card-body text-center">
-                        <h4 class="card-title">Pre-school</h4>
-                        <p class="card-text">At  Sunshine we have an interactive, inclusive and engaging environment which adapts to every child’s specific requirements. With right tools, we help children in their overall development.</p>
-                    </div>
-                    <div class="card-footer bg-transparent py-4 px-5">
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
-                            <div class="col-6 py-1"> 3 to 4 years</div>
-                        </div>
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
-                            <div class="col-6 py-1">30 Seats</div>
-                        </div>
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
-                            <div class="col-6 py-1">09:30am - 12:30pm</div>
-                        </div>
-                       
-                    </div>
-                   
+
+  <!-- Previous content (flex box, text, and carousel) goes here -->
+   <section id="program">
+  <h2 class="d-flex justify-content-center">Our Programs </h2>
+  <hr>
+  <div class="row p-4">
+    <div class="col-12 col-md-6 col-lg-3 mb-4">
+        <div class="card h-100">
+            <img src="/img/fun3.jpg" class="card-img-top p-3 " alt="Play Group">
+            <img src="/img/play group.png" class="card-img" alt="Play Group Icon">
+            <div class="card-body">
+              <p class="card-text"> Enroll at Sunshine Childcare play group is a small, informal gathering of young children, usually aged 1-5 years, who come together to play and interact under the supervision of parents, caregivers, or facilitators. </p>
+              
+         
+          <div class="card-footer bg-transparent py-4 px-3 card-footer-custom">
+              <div class="row border-bottom">
+                  <div class="col-6 py-1 text-end border-end"><strong>Age of Kids</strong></div>
+                  <div class="col-6 py-1">1 1/2 to 3 years</div>
+              </div>
+              <div class="row border-bottom">
+                  <div class="col-6 py-1 text-end border-end"><strong>Total Seats</strong></div>
+                  <div class="col-6 py-1">30 Seats</div>
+              </div>
+              <div class="row border-bottom">
+                  <div class="col-6 py-1 text-end border-end"><strong>Class Time</strong></div>
+                  <div class="col-6 py-1">09:00am - 12:30pm</div>
+              </div>
+              <a href="#admission"><button class="btn btn-success mt-3 btn-block  "> Enroll Now </button></a>
                 </div>
-            </div>
-            <div class="col-lg-4 mb-5">
-                <div class="card border-0 bg-light shadow-sm pb-2">
-                    <img class="card-img-top mb-2" src="img/play.jpg" alt="">
-                    <div class="card-body text-center">
-                        <h4 class="card-title">Play Group</h4>
-                        <p class="card-text">In Playgroup, children are engaged in play and activities together in a fun way method. They develop social and communication skills. We help them explore sensory materials for wholistic development.</p>
-                    </div>
-                    <div class="card-footer bg-transparent py-4 px-5">
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
-                            <div class="col-6 py-1">1 1/2  to 3 years</div>
-                        </div>
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
-                            <div class="col-6 py-1">30 Seats</div>
-                        </div>
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
-                            <div class="col-6 py-1">09:30am - 12:30pm</div>
-                        </div>
-                      
-                    </div>
-                   
                 </div>
-            </div>
-            <div class="col-lg-4 mb-5">
-                <div class="card border-0 bg-light shadow-sm pb-2">
-                    <img class="card-img-top mb-2" src="img/day.jpg" alt="">
-                    <div class="card-body text-center">
-                        <h4 class="card-title">Day-Care</h4>
-                        <p class="card-text"> We provide a nurturing and safe environment for children while parents are at work. We maintain good hygiene, schedules, and routines, and implement a curriculum for learning, physical activity, playtime, and rest. We offer healthy snacks with caretaker assistance and have child-friendly nap beds for sleeping</p>
-                    </div>
-                    <div class="card-footer bg-transparent py-4 px-5">
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
-                            <div class="col-6 py-1">1 1/2  to 4 years</div>
-                        </div>
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
-                            <div class="col-6 py-1">30 Seats</div>
-                        </div>
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
-                            <div class="col-6 py-1">08:00am - 06:00</div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="col-lg-4 mb-5">
-                <div class="card border-0 bg-light shadow-sm pb-2">
-                    <img class="card-img-top mb-2" src="img/day.jpg" alt="">
-                    <div class="card-body text-center">
-                        <h4 class="card-title">After School care</h4>
-                        <p class="card-text"> </p>
-                    </div>
-                    <div class="card-footer bg-transparent py-4 px-5">
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
-                            <div class="col-6 py-1">1 1/2  to 4 years</div>
-                        </div>
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
-                            <div class="col-6 py-1">30 Seats</div>
-                        </div>
-                        <div class="row border-bottom">
-                            <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
-                            <div class="col-6 py-1">08:00am - 06:00</div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-            </div>
+             
+                
+           
         </div>
     </div>
-</div>
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
+          <div class="card h-100">
+              <img src="/img/day.jpg" class="card-img-top p-3" alt="Pre-School">
+
+              <img src="/img/Preschool.png" class="card-img" alt="Pre-School Icon">
+              <div class="card-body">
+                <p class="card-text">Enroll your child in our nurturing and interactive preschool program at Sunshine Childcare, where they will develop strong social skills, a love for learning, and a solid foundation for their future education.</p>
+             
+            <div class="card-footer bg-transparent py-4 px-3 card-footer-custom">
+                <div class="row border-bottom">
+                    <div class="col-6 py-1 text-end border-end"><strong>Age of Kids</strong></div>
+                    <div class="col-6 py-1">3 to 4 years</div>
+                </div>
+                <div class="row border-bottom">
+                    <div class="col-6 py-1 text-end border-end"><strong>Total Seats</strong></div>
+                    <div class="col-6 py-1">30 Seats</div>
+                </div>
+                <div class="row border-bottom">
+                    <div class="col-6 py-1 text-end border-end"><strong>Class Time</strong></div>
+                    <div class="col-6 py-1">09:30am - 12:30pm</div>
+                </div>
+                  <a href="#admission"><button class="btn btn-success mt-3 btn-block  "> Enroll Now </button></a>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
+          <div class="card h-100">
+              <img src="/img/hero3.jpg" class="card-img-top p-3" alt="Day Care">
+              <img src="/img/Daycare.png" class="card-img" alt="Day Care Icon">
+              <div class="card-body">
+                
+                <p class="card-text">Enroll your child in our  nurturing and engaging environment of our daycare program at Sunshine Childcare, designed to support your child's growth, creativity, and daily well-being.</p>
+            
+            <div class="card-footer bg-transparent py-4 px-3 card-footer-custom">
+                <div class="row border-bottom">
+                    <div class="col-6 py-1 text-end border-end"><strong>Age of Kids</strong></div>
+                    <div class="col-6 py-1">1 1/2 to 4 years</div>
+                </div>
+                <div class="row border-bottom">
+                    <div class="col-6 py-1 text-end border-end"><strong>Total Seats</strong></div>
+                    <div class="col-6 py-1">30 Seats</div>
+                </div>
+                <div class="row border-bottom">
+                    <div class="col-6 py-1 text-end border-end"><strong>Class Time</strong></div>
+                    <div class="col-6 py-1">08:00am - 06:00pm</div>
+                </div>
+                <a href="#admission"><button class="btn btn-success mt-3 btn-block  "> Enroll Now </button></a>
+                 </div>
+               
+                  
+              </div>
+          </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
+          <div class="card h-100">
+              <img src="/img/about.jpg" class="card-img-top p-4" alt="After School Care">
+              <img src="/img/afterschool 1.png" class="card-img p-3" height="110px" alt="After School Care Icon">
+              <div class="card-body">
+                
+                <p class="card-text"> Enroll at Sunshine Childcare After-school care provides supervision. We extend our daycare facility to older children coming from other schools. We provide a safe and loving environment.</p>
+            
+            <div class="card-footer bg-transparent py-4 px-3 card-footer-custom">
+               
+                <div class="row border-bottom">
+                    <div class="col-6 py-1 text-end border-end"><strong>Total Seats</strong></div>
+                    <div class="col-6 py-1">30 Seats</div>
+                </div>
+                <div class="row border-bottom">
+                    <div class="col-6 py-1 text-end border-end"><strong>Class Time</strong></div>
+                    <div class="col-6 py-1">08:00am - 06:00pm</div>
+                </div>
+                <a href="#admission"><button class="btn btn-success mt-3 btn-block  "> Enroll Now </button></a>
+                 </div>
+                  
+              </div>
+          </div>
+      </div>
+      
+  </div>
+  </div>
+  </div>
+</section>
 
 <!-- book -->
 <section id="book"></section>
-<div class="container-fluid py-5">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-7 mb-5 mb-lg-0">
-                <p class="section-title pr-5"><span class="pr-2">Book A Seat</span></p>
-                <h1 class="mb-4">Book A Seat For Your Kid</h1>
-                <p>Our innovative and creative curriculum allows children to freely explore, investigate and experience the world with all of their senses through learning material, audio video equipments and guidance. The curriculum has been designed for the all round development of the child, taking into account their cognitive, physical, social, emotional and sensorial abilities.
-                </p>
-                <ul class="list-inline m-0">
-                    <li class="py-2"><i class="fa fa-check text-success mr-3"></i> Kid’s friendly and safe spaces</li>
-                    <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Highest quality educational toys. 
-                    </li>
-                    <li class="py-2"><i class="fa fa-check text-success mr-3"></i>⁠Projector which helps kids visualise and understand the curriculum
-                    </li>
-                </ul>
-              
-            </div>
-            <div class="col-lg-5">
-                <div class="card border-0">
-                    <div class="card-header bg-secondary text-center p-4">
-                        <h1 class="text-white m-0">Book A Seat</h1>
-                    </div>
-                    <div class="card-body rounded-bottom bg-primary p-5">
-                        <form>
-                            <div class="form-group">
-                                <input type="text" class="form-control border-0 p-4 name" placeholder="Your Name" required="required" />
-                            </div>
-                            
-                            <div class="form-group">
-                                <input type="email" class="form-control border-0 p-4 email" placeholder="Your Email" required="required" />
-                            </div>
-                            <div class="form-group">
-                                <select class="custom-select border-0 px-4 class" style="height: 47px;">
-                                    <option selected>Select School Category</option>
-                                    <option value="1">Pre School</option>
-                                    <option value="2">Play School</option>
-                                    <option value="3">Day School</option>
-                                </select>
-                            </div>
-                            <div>
-                                <button class="btn btn-secondary btn-block border-0 py-3" type="button" onclick="sendWhatsApp();">Book Now</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
+
 <!-- Testimonial Start -->
+ <section id="Testimonials">
 <div class="container-fluid py-5">
     <div class="container p-0">
         <div class="text-center pb-2">
-            <p class="section-title px-5"><span class="px-2">Testimonial</span></p>
-            <h1 class="mb-4">What Parents Say!</h1>
+        
+            <h1 class="mb-4">Testimonial</h1>
         </div>
         <div class="owl-carousel testimonial-carousel">
             <div class="testimonial-item px-3">
@@ -324,7 +711,7 @@ Thanks to Sunshine.
             <div class="testimonial-item px-3">
                 <div class="bg-light shadow-sm rounded mb-4 p-4">
                     <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                    I am happy with the management of Sunshine play school.  My daughter is truly enjoying and improving to a great extent. It is a pleasure to attend the programs of this school. My daughter has improved well in dance. It is a treat to watch the kids perform in different activities. Really wonder how the teachers manage  it so well. The school is clean and well maintained. Hats of to them. 
+                    I am happy with the management of Sunshine play school.  My daughter is truly enjoying and improving to a great extent. It is a pleasure to attend the programs of this school. My daughter has improved well in dance. It is a treat to watch the kids perform in different activities. Really wonder how the teachers manage  it so well. The school is clean and well maintained. Hats off to them. 
                     Wishing you all the very best in the future.
                     
                 </div>
@@ -368,7 +755,7 @@ Thank u so much Lakshmi ma'am🙏
                 <div class="d-flex align-items-center">
                     <img class="rounded-circle" src="img/anisa.jpg" style="width: 70px; height: 70px;" alt="Image">
                     <div class="pl-3">
-                        <h5>Dr.Anisa</h5>
+                        <h5>Dr.Anisa Dentist</h5>
                         
                     </div>
                 </div>
@@ -391,75 +778,11 @@ Thank u so much Lakshmi ma'am🙏
         </div>
     </div>
 </div>
+</section>
 <!-- Testimonial End -->
 
   
    
-
-      <!-- Facilities Start -->
-      <div class="container-fluid pt-5">
-        <div class="container pb-3">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-050-fence h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Outdoor play area</h4>
-                            <p class="m-0">Playtime and activities outside to promote physical health and exploration of the environment.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-022-drum h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>⁠Quality educational toys</h4>
-                            <p class="m-0">Age appropriate toys to help achieve every milestone.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-030-crayons h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>⁠Projector 
-                            </h4>
-                            <p class="m-0">which helps kids visualise and understand the curriculum</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-017-toy-car h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Kid’s friendly and safe spaces.</h4>
-                            <p class="m-0">several key considerations to ensure that the environment is welcoming, engaging, and secure for children. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-025-restroom h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Safe and hygienic washroom</h4>
-                            <p class="m-0">The washroom is regularly cleaned, stocked with soap, and has touch-free fixtures</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-047-backpack h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>⁠Library
-                            </h4>
-                            <p class="m-0"> offer a cozy, safe environment with accessible, age-appropriate books </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Facilities Start -->
 
 
     
@@ -554,24 +877,39 @@ Thank u so much Lakshmi ma'am🙏
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/isotope/isotope.pkgd.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 
     <script>
         function sendWhatsApp() {
             var phoneNumber = "9487562182";
     
             var name = document.querySelector(".name").value;
-            var email = document.querySelector(".email").value;
+            var child = document.querySelector(".child").value;
+            var age = document.querySelector(".age").value;
+            var number = document.querySelector(".number").value;
             var selectedClass = document.querySelector(".class").value;
     
             var url = "https://wa.me/" + phoneNumber + "?text="
                 + "*Name:* " + encodeURIComponent(name) + "%0a"
-                + "*Email:* " + encodeURIComponent(email) + "%0a"
+                + "*Child:* " + encodeURIComponent(child) + "%0a"
+                + "*Age:* " + encodeURIComponent(age) + "%0a"
+                + "*Number:* " + encodeURIComponent(number) + "%0a"
                 + "*Selected Class:* " + encodeURIComponent(selectedClass);
                 
     
             window.open(url, '_blank').focus();
         }
+
+        
+  $(document).ready(function() {
+    $('.carousel').carousel({
+      interval: 2000 // 2000 milliseconds = 2 seconds
+    });
+  });
+
     </script>
+    
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
