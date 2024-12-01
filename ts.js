@@ -61,6 +61,7 @@ function toggleMenu() {
                 992:{
                     items:2
                 }
+                
             }
         });
 
